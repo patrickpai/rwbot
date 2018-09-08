@@ -86,7 +86,7 @@ def main():
             continue
 
         # print(hello_from_exchange)
-        if hello_from_exchange['type'] == "ack":
+        if "ack" in hello_from_exchange['type']:
             print('ack', hello_from_exchange)
 
         symbol = hello_from_exchange['symbol']
