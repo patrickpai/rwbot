@@ -17,7 +17,7 @@ import strats
 team_name="RWALK"
 # This variable dictates whether or not the bot is connecting to the prod
 # or test exchange. Be careful with this switch!
-test_mode = False
+test_mode = True
 
 # This setting changes which test exchange is connected to.
 # 0 is prod-like
@@ -64,11 +64,36 @@ def main():
         if 'type' in hello_from_exchange and 'ack' in hello_from_exchange['type']:
             print('ACK:', hello_from_exchange)
 
-        if 'symbol' in hello_from_exchange and hello_from_exchange['symbol'] == 'BOND'\
-                and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
-            returned = strats.bond_aggro(hello_from_exchange, order_id)
-            order_id += 1
-            result = write_to_exchange(exchange, returned)
+        # if 'symbol' in hello_from_exchange and hello_from_exchange['symbol'] == 'BOND'\
+        #         and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
+        #     returned = strats.bond_aggro(hello_from_exchange, order_id)
+        #     order_id += 1
+        #     result = write_to_exchange(exchange, returned)
+        if 'symbol' in hello_from_exchange and (hello_from_exchange['symbol'] == 'BABZ'\
+            or hello_from_exchange['symbol'] == 'BABA') and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
+
+            print('LINE:', hello_from_exchange)
+
+            if len(babz_prices) > 0 and len(baba_prices) > 0 :
+                returned = strats.adr(babz_prices, baba_prices, order_id) # Array
+                order_id += 1
+
+                print('RETURNED:',returned)
+                
+                if returned is not None and len(returned) > 0:
+                   for order in returned:
+                        write_to_exchange(exchange, order)
+
+                babz_prices = ""
+                baba_prices = ""
+
+                # print('PASSED:', hello_from_exchange)
+                # print('RESULT:', result)
+            if hello_from_exchange['symbol'] == 'BABZ':
+                babz_prices = hello_from_exchange
+            elif hello_from_exchange['symbol'] == 'BABA':
+                baba_prices = hello_from_exchange
+
 
 if __name__ == "__main__":
     main()
