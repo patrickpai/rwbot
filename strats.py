@@ -95,8 +95,56 @@ def adr(babz_prices, baba_prices, order_id):
 
 			return toReturn
 
+def etf(xlk, bond, aapl, msft, goog, order_id):
 
+	toReturn = []
 
+	xlk_buy_price = -1
+	xlk_buy_size = -1
+
+	xlk_sell_price = -1
+	xlk_sell_size = -1
+
+	bond_buy_price = -1
+	bond_buy_size = -1
+
+	bond_sell_price = -1
+	bond_sell_size = -1
+
+	aapl_buy_price = -1
+	aapl_buy_size = -1
+
+	aapl_sell_price = -1
+	aapl_sell_size = -1
+
+	msft_buy_price = -1
+	msft_buy_size = -1
+
+	msft_sell_price = -1
+	msft_sell_size = -1
+
+	goog_buy_price = -1
+	goog_buy_size = -1
+
+	goog_sell_price = -1
+	goog_sell_size = -1
+
+	if len(xlk["buy"]) and len(xlk["sell"]) and len(bond["buy"]) and len(bond["sell"]) and len(aapl["buy"]) and len(aapl["sell"]) \
+		and len(msft["buy"]) and len(msft["sell"]) and len(goog["buy"]) and len(goog["sell"]):
+
+		xlk_fair_buy = (3 * bond_buy_price + 2 * aapl_buy_size + 3 * msft_buy_price + 2 * goog_buy_price)/10
+
+		if xlk_fair_buy > xlk_sell_price + CONVERT_FEE:
+
+			toReturn.append({"type": "add", "order_id": order_id, "symbol": "XLK", "dir": "BUY", "price": xlk_sell_price, "size": xlk_sell_size})
+			toReturn.append({"type": "convert", "order_id": order_id, "symbol": "XLK", "dir": "BUY", "size": xlk_sell_size})
+
+			toReturn.append({"type": "add", "order_id": order_id, "symbol": "BOND", "dir": "SELL", "price": bond_buy_price, "size": xlk_sell_size*3})
+			toReturn.append({"type": "add", "order_id": order_id, "symbol": "AAPL", "dir": "SELL", "price": aapl_buy_price, "size": xlk_sell_size*2})
+			toReturn.append({"type": "add", "order_id": order_id, "symbol": "MSFT", "dir": "SELL", "price": msft_buy_price, "size": xlk_sell_size*3})
+			toReturn.append({"type": "add", "order_id": order_id, "symbol": "GOOG", "dir": "SELL", "price": goog_buy_price, "size": xlk_sell_size*2})
+
+			return toReturn
 
 
 
