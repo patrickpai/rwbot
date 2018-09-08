@@ -172,7 +172,7 @@ def etf(xlk, bond, aapl, msft, goog, order_id, num_xlk):
 		if xlk_fair_buy > xlk_sell_price:
 
 			# print("ETF -> Stocks")
-			print("Making transaction")
+			print("Making transaction buy transaction")
 
 			toReturn.append({"type": "add", "order_id": order_id, "symbol": "XLK", "dir": "BUY", "price": xlk_sell_price, "size": xlk_sell_size})
 
@@ -188,7 +188,7 @@ def etf(xlk, bond, aapl, msft, goog, order_id, num_xlk):
 
 		if xlk_fair_sell < xlk_buy_price:
 
-			print("Making transaction")
+			print("Making sell transaction")
 
 			toReturn.append({"type": "add", "order_id": order_id, "symbol": "BOND", "dir": "BUY", "price": bond_sell_price, "size": bond_sell_size})
 			toReturn.append({"type": "add", "order_id": order_id, "symbol": "AAPL", "dir": "BUY", "price": aapl_sell_price, "size": aapl_sell_size})
