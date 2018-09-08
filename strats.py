@@ -181,8 +181,6 @@ def etf(xlk, bond, aapl, msft, goog, order_id):
 			toReturn.append({"type": "add", "order_id": order_id, "symbol": "MSFT", "dir": "SELL", "price": msft_buy_price, "size": xlk_sell_size*3})
 			toReturn.append({"type": "add", "order_id": order_id, "symbol": "GOOG", "dir": "SELL", "price": goog_buy_price, "size": xlk_sell_size*2})
 
-			return toReturn
-
 		xlk_fair_sell = ((3 * bond_sell_price) + (2 * aapl_sell_price) + (3 * msft_sell_price) + (2 * goog_sell_price))/10
 
 		print("Fair sell: ", xlk_fair_sell)
@@ -203,6 +201,6 @@ def etf(xlk, bond, aapl, msft, goog, order_id):
 
 			toReturn.append({"type": "add", "order_id": order_id, "symbol": "XLK", "dir": "SELL", "price": xlk_buy_price, "size": num_xlk})
 					
-			return toReturn
+		return toReturn
 
 
