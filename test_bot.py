@@ -53,6 +53,12 @@ def main():
     babz_prices = ""
     baba_prices = ""
 
+    xlk = ""
+    bond = ""
+    aapl = ""
+    msft = ""
+    goog = ""
+
     while True:
         hello_from_exchange = read_from_exchange(exchange)
         # A common mistake people make is to call write_to_exchange() > 1
@@ -64,21 +70,20 @@ def main():
         if 'type' in hello_from_exchange and 'ack' in hello_from_exchange['type']:
             print('ACK:', hello_from_exchange)
 
+        if 'symbol' not in hello_from_exchange:
+            continue
+
+        symbol = hello_from_exchange['symbol']
+
         # if 'symbol' in hello_from_exchange and hello_from_exchange['symbol'] == 'BOND'\
         #         and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
         #     returned = strats.bond_aggro(hello_from_exchange, order_id)
         #     order_id += 1
         #     result = write_to_exchange(exchange, returned)
-        if 'symbol' in hello_from_exchange and (hello_from_exchange['symbol'] == 'BABZ'\
-            or hello_from_exchange['symbol'] == 'BABA') and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
-
-            print('LINE:', hello_from_exchange)
-
+        if (symbol == 'BABZ' or symbol == 'BABA') and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
             if len(babz_prices) > 0 and len(baba_prices) > 0 :
                 returned = strats.adr(babz_prices, baba_prices, order_id) # Array
                 order_id += 1
-
-                print('RETURNED:',returned)
                 
                 if returned is not None and len(returned) > 0:
                    for order in returned:
@@ -86,14 +91,36 @@ def main():
 
                 babz_prices = ""
                 baba_prices = ""
-
-                # print('PASSED:', hello_from_exchange)
-                # print('RESULT:', result)
-            if hello_from_exchange['symbol'] == 'BABZ':
+            if symbol == 'BABZ':
                 babz_prices = hello_from_exchange
-            elif hello_from_exchange['symbol'] == 'BABA':
+            elif symbol == 'BABA':
                 baba_prices = hello_from_exchange
 
+        if (symbol == 'XLK' or symbol == 'BOND' or symbol == 'AAPL' or symbol == 'MSFT' or symbol == 'GOOG') and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
+            if len(xlk) > 0 and len(bond) > 0 and len(aapl) > 0 and len(msft) > 0 and len(goog) > 0:
+                returned = strats.etf(xlk, bond, aapl, msft, goog, order_id)
+                order_id += 1
 
+                if returned is not None and len(returned) > 0:
+                    for order in returned:
+                        write_to_exchange(exchange, order)
+
+                xlk = ""
+                bond = ""
+                aapl = ""
+                msft = ""
+                goog = ""
+
+            if symbol == 'xlk':
+                xlk = hello_from_exchange
+            elif symbol == 'bond':
+                bond = hello_from_exchange
+            elif symbol == 'aapl':
+                aapl = hello_from_exchange
+            elif symbol == 'msft':
+                msft = hello_from_exchange
+            elif symbol == 'goog':
+                goog = hello_from_exchange
+                
 if __name__ == "__main__":
     main()
