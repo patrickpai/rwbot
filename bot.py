@@ -56,6 +56,15 @@ def main():
     babz_prices = ""
     baba_prices = ""
 
+    xlk = ""
+    bond = ""
+    aapl = ""
+    msft = ""
+    goog = ""
+
+    numXLK = 0
+    numBonds = 0
+    
     while True:
         hello_from_exchange = read_from_exchange(exchange)
         # A common mistake people make is to call write_to_exchange() > 1
