@@ -91,6 +91,7 @@ def main():
                 if order_id > 10:
                     write_to_exchange(exchange, {"type": "cancel", "order_id": order_id - 10})
 
+
                 if returned is not None and len(returned) > 0:
                     for order in returned:
                         write_to_exchange(exchange, order)
