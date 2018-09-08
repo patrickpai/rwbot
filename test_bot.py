@@ -100,12 +100,12 @@ def main():
                     for order in returned:
                         # if order['symbol'] == 'XLK' and order['dir'] == 'BUY':
                         #     numXLK += order['size']
-                        # elif order['symbol'] == 'BOND' and order['dir'] == 'BUY':
-                        #     numBonds += order['size']
+                        if order['symbol'] == 'BOND' and order['dir'] == 'BUY':
+                            numBonds += order['size']
                         # if order['type'] == 'convert' and order['dir'] == 'SELL':
                         #     numXlK = 0
-                        # elif order['type'] == 'convert' and order['dir'] == 'BUY':
-                        #     numBonds = 0
+                        if order['type'] == 'convert' and order['dir'] == 'BUY':
+                            numBonds = 0
 
                         write_to_exchange(exchange, order)
                         time.sleep(.1)
