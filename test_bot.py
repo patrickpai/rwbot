@@ -98,9 +98,9 @@ def main():
                         if order['symbol'] == 'XLK' and order['dir'] == 'BUY':
                             numXLK += order['size']
                         converted = write_to_exchange(exchange, order)
-                        if order[type] == 'convert' and 'ack' in converted:
+                        if order['type'] == 'convert' and 'ack' in converted:
                             print('CONVERSION SUCCESS')
-                        if order[type] == 'convert' and 'reject' in converted:
+                        if order['type'] == 'convert' and 'reject' in converted:
                             print('CONVERSION FAILURE')
                         time.sleep(.1)
 
