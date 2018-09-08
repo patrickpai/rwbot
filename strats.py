@@ -41,7 +41,6 @@ def bond_aggro(prices, order_id):
 		buy_size = prices["buy"][0][1]
 
 		if buy_bond_price < 999:
-
 			return {"type": "add", "order_id": order_id, "symbol": "BOND", "dir": "BUY", "price": buy_bond_price+1, "size": buy_size}
 
 	if len(prices["sell"]) > 0:
@@ -49,7 +48,6 @@ def bond_aggro(prices, order_id):
 		sell_size = prices["sell"][0][1]
 
 		if sell_bond_price > 1001:
-
 			return {"type": "add", "order_id": order_id, "symbol": "BOND", "dir": "SELL", "price": sell_bond_price-1, "size": sell_size}
 
 def adr(babz_prices, baba_prices, order_id):
