@@ -85,7 +85,6 @@ def main():
         if 'symbol' not in hello_from_exchange:
             continue
 
-        print(hello_from_exchange)
         if 'ack' in hello_from_exchange['type']:
             print('fill', hello_from_exchange)
 
@@ -118,7 +117,6 @@ def main():
 
             if symbol == 'XLK':
                 xlk = hello_from_exchange
-                # print('ETF:', hello_from_exchange)
             elif symbol == 'BOND':
                 bond = hello_from_exchange
             elif symbol == 'AAPL':
