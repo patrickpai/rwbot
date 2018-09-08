@@ -54,6 +54,8 @@ def bond_aggro(prices, order_id):
 
 def adr(babz_prices, baba_prices, order_id):
 
+	toReturn = []
+
 	babz_buy_price = -1
 	babz_buy_size = -1
 
@@ -79,11 +81,18 @@ def adr(babz_prices, baba_prices, order_id):
 		baba_sell_price = baba_prices["sell"][0][0]
 		baba_sell_size = baba_prices["sell"][0][1]
 
-		if babz_sell_price + CONVERT_FEE < baba_sell_price:
-			return {"type": "add", "order_id": order_id, "symbol": "BABA", "dir": "BUY", "price": baba_sell_price, "size": baba_sell_size}
+		# if babz_sell_price + CONVERT_FEE < baba_sell_price:
+		# 	return {"type": "add", "order_id": order_id, "symbol": "BABA", "dir": "BUY", "price": baba_sell_price, "size": baba_sell_size}
 
-		if babz_buy_price > baba_buy_price + CONVERT_FEE:
-			return {"type": "add", "order_id": order_id, "symbol": "BABA", "dir": "SELL", "price": baba_buy_price, "size": baba_buy_size}
+		# if babz_buy_price > baba_buy_price + CONVERT_FEE:
+		# 	return {"type": "add", "order_id": order_id, "symbol": "BABA", "dir": "SELL", "price": baba_buy_price, "size": baba_buy_size}
+
+		if babz_buy_price > baba_sell_price
+			toReturn.append({"type": "add", "order_id": order_id, "symbol": "BABA", "dir": "BUY", "price": baba_sell_price, "size": baba_sell_size})
+			toReturn.append({"type": "convert", "order_id": order_id, "symbol": "BABA", "dir": "BUY", "size": baba_sell_size})
+			toReturn.append({"type": "add", "order_id": order_id, "symbol": "BABZ", "dir": "SELL", "price": babz_buy_price, "size": baba_sell_size})
+
+			return toReturn
 
 
 
