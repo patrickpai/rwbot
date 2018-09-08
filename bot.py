@@ -48,7 +48,7 @@ def read_from_exchange(exchange):
 def main():
     exchange = connect()
     write_to_exchange(exchange, {"type": "hello", "team": team_name.upper()})
-    order_id = 1;
+    order_id = 1
     while True:
         hello_from_exchange = read_from_exchange(exchange)
         # A common mistake people make is to call write_to_exchange() > 1
@@ -58,6 +58,7 @@ def main():
         print("The exchange replied:", hello_from_exchange, file=sys.stderr)
 
         if 'symbol' in hello_from_exchange and hello_from_exchange['symbol'] == 'BOND':
+            print('PASSED:', hello_from_exchange)
             returned = strats.bond_passive(hello_from_exchange, order_id)
             order_id += 1
             write_to_exchange(exchange, returned)
