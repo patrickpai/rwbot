@@ -94,6 +94,7 @@ def main():
 
                 if returned is not None and len(returned) > 0:
                     for order in returned:
+                        print('numXLK:', numXLK)
                         if order['symbol'] == 'XLK' and order['dir'] == 'BUY':
                             numXLK += order['size']
                         converted = write_to_exchange(exchange, order)
