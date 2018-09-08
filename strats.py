@@ -49,7 +49,6 @@ def bond_aggro(prices, order_id):
 		sell_size = prices["sell"][0][1]
 
 		if sell_bond_price > 1001:
-
 			return {"type": "add", "order_id": order_id, "symbol": "BOND", "dir": "SELL", "price": sell_bond_price-1, "size": sell_size}
 
 def adr(babz_prices, baba_prices, order_id):
@@ -162,18 +161,14 @@ def etf(xlk, bond, aapl, msft, goog, order_id, num_xlk):
 		goog_sell_price = goog["sell"][0][0]
 		goog_sell_size = goog["sell"][0][1]
 
-		# print("Parsed prices")
+		# What you can sell XLK for if you buy the stocks it's composed of
+		xlk_fair_buy = ((3 * bond_buy_price) + (2 * aapl_buy_price) + (3 * msft_buy_price) + (2 * goog_buy_price))/10
 
-		xlk_fair_buy = ((3 * bond_buy_price) + (2 * aapl_buy_price) + (3 * msft_buy_price) + (2 * goog_buy_price))/10.0
-
-		# print("Fair buy: ", xlk_fair_buy)
-		# print("Sell price: ", xlk_sell_price)
-
+		# If we can buy the stocks XLK is composed of for more than what XLK sells for
 		if xlk_fair_buy > xlk_sell_price:
-
-			# print("ETF -> Stocks")
 			print("Making transaction buy transaction")
 
+			# Buy XLK and sell the stocks XLK is composed of
 			toReturn.append({"type": "add", "order_id": order_id, "symbol": "XLK", "dir": "BUY", "price": xlk_sell_price, "size": xlk_sell_size})
 
 			toReturn.append({"type": "add", "order_id": order_id, "symbol": "BOND", "dir": "SELL", "price": bond_buy_price, "size": xlk_sell_size*3})
@@ -181,13 +176,11 @@ def etf(xlk, bond, aapl, msft, goog, order_id, num_xlk):
 			toReturn.append({"type": "add", "order_id": order_id, "symbol": "MSFT", "dir": "SELL", "price": msft_buy_price, "size": xlk_sell_size*3})
 			toReturn.append({"type": "add", "order_id": order_id, "symbol": "GOOG", "dir": "SELL", "price": goog_buy_price, "size": xlk_sell_size*2})
 
-		xlk_fair_sell = ((3 * bond_sell_price) + (2 * aapl_sell_price) + (3 * msft_sell_price) + (2 * goog_sell_price))/10.0
+		# What we can buy XLK for if we buy XLK's underlying stocks
+		xlk_fair_sell = ((3 * bond_sell_price) + (2 * aapl_sell_price) + (3 * msft_sell_price) + (2 * goog_sell_price))/10
 
-		# print("Fair sell: ", xlk_fair_sell)
-		# print("Buy price: ", xlk_buy_price)
-
+		# If the cost of buying XLK is greater than what we can buy XLK's underlying stocks for
 		if xlk_fair_sell < xlk_buy_price:
-
 			print("Making sell transaction")
 
 			toReturn.append({"type": "add", "order_id": order_id, "symbol": "BOND", "dir": "BUY", "price": bond_sell_price, "size": bond_sell_size})
