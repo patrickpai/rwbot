@@ -194,18 +194,18 @@ def etf_aggro(xlk, bond, aapl, msft, goog, order_id):
 
 		xlk_fair_buy = ((3 * bond_buy_price) + (2 * aapl_buy_price) + (3 * msft_buy_price) + (2 * goog_buy_price))/10
 
-		if xlk_buy_price < xlk_fair_buy - 1:
+		#if xlk_buy_price < xlk_fair_buy - 1:
 			
-			toReturn.append({"type": "add", "order_id": order_id, "symbol": "XLK", "dir": "BUY", "price": xlk_buy_price+1, "size": xlk_buy_size})
+		toReturn.append({"type": "add", "order_id": order_id, "symbol": "XLK", "dir": "BUY", "price": xlk_buy_price+1, "size": xlk_buy_size})
 
 			#return {"type": "add", "order_id": order_id, "symbol": "XLK", "dir": "BUY", "price": xlk_buy_price+1, "size": xlk_buy_size}
 			
 		# What we can buy XLK for if we buy XLK's underlying stocks
 		xlk_fair_sell = ((3 * bond_sell_price) + (2 * aapl_sell_price) + (3 * msft_sell_price) + (2 * goog_sell_price))/10
 
-		if xlk_sell_price > xlk_fair_buy + 5:
+		#if xlk_sell_price > xlk_fair_buy + 5:
 
-			toReturn.append({"type": "add", "order_id": order_id, "symbol": "XLK", "dir": "SELL", "price": xlk_sell_price-1, "size": xlk_sell_size})
+		toReturn.append({"type": "add", "order_id": order_id, "symbol": "XLK", "dir": "SELL", "price": xlk_sell_price-1, "size": xlk_sell_size})
 
 			#return {"type": "add", "order_id": order_id, "symbol": "XLK", "dir": "SELL", "price": xlk_sell_price-1, "size": xlk_sell_size}
 
