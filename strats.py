@@ -87,7 +87,7 @@ def adr(babz_prices, baba_prices, order_id):
 		# if babz_buy_price > baba_buy_price + CONVERT_FEE:
 		# 	return {"type": "add", "order_id": order_id, "symbol": "BABA", "dir": "SELL", "price": baba_buy_price, "size": baba_buy_size}
 
-		if babz_buy_price > baba_sell_price
+		if babz_buy_price > baba_sell_price:
 			toReturn.append({"type": "add", "order_id": order_id, "symbol": "BABA", "dir": "BUY", "price": baba_sell_price, "size": baba_sell_size})
 			toReturn.append({"type": "convert", "order_id": order_id, "symbol": "BABA", "dir": "BUY", "size": baba_sell_size})
 			toReturn.append({"type": "add", "order_id": order_id, "symbol": "BABZ", "dir": "SELL", "price": babz_buy_price, "size": baba_sell_size})

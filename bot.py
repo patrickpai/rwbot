@@ -77,9 +77,12 @@ def main():
             if len(babz_prices) > 0 and len(baba_prices) > 0 :
                 returned = strats.adr(babz_prices, baba_prices, order_id) # Array
                 order_id += 1
-
-                for order in returned:
-                    write_to_exchange(exchange, order)
+		
+                print('RETURNED:',returned)
+                
+                if returned is not None and len(returned) > 0:
+                   for order in returned:
+                        write_to_exchange(exchange, order)
 
                 babz_prices = ""
                 baba_prices = ""
