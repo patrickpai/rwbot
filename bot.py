@@ -17,7 +17,7 @@ import strats
 team_name="RWALK"
 # This variable dictates whether or not the bot is connecting to the prod
 # or test exchange. Be careful with this switch!
-test_mode = False
+test_mode = True
 
 # This setting changes which test exchange is connected to.
 # 0 is prod-like
@@ -57,9 +57,10 @@ def main():
         # exponential explosion in pending messages. Please, don't do that!
         print("The exchange replied:", hello_from_exchange, file=sys.stderr)
 
-        if hello_from_exchange['symbol'] == 'BOND':
-            strats.bond_passive(hello_from_exchange, order_id)
+        if 'symbol' in hello_from_exchange and hello_from_exchange['symbol'] == 'BOND':
+            returned = strats.bond_passive(hello_from_exchange, order_id)
             order_id += 1
+            write_to_exchange(exchange, returned)
 
 if __name__ == "__main__":
     main()
