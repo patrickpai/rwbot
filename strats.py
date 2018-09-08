@@ -185,7 +185,7 @@ def etf(xlk, bond, aapl, msft, goog, order_id):
 
 		xlk_fair_sell = ((3 * bond_sell_price) + (2 * aapl_sell_price) + (3 * msft_sell_price) + (2 * goog_sell_price))/10
 
-		print("Fair sell: ", xlk_sell_buy)
+		print("Fair sell: ", xlk_fair_sell)
 		print("Buy price: ", xlk_buy_price)
 
 		if xlk_fair_sell + CONVERT_FEE < xlk_buy_price:
