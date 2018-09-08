@@ -200,7 +200,7 @@ def etf(xlk, bond, aapl, msft, goog, order_id):
 
 			toReturn.append({"type": "convert", "order_id": order_id, "symbol": "XLK", "dir": "SELL", "size": 10})
 
-			toReturn.append({"type": "add", "order_id": order_id, "symbol": "XLK", "dir": "SELL", "price": xlk_buy_price, "size": num_xlk})
+			toReturn.append({"type": "add", "order_id": order_id, "symbol": "XLK", "dir": "SELL", "price": xlk_buy_price, "size": 10})
 					
 		return toReturn
 
