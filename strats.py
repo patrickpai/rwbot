@@ -162,9 +162,13 @@ def etf(xlk, bond, aapl, msft, goog, order_id):
 		goog_sell_price = goog["sell"][0][0]
 		goog_sell_size = goog["sell"][0][1]
 
+		print("Parsed prices")
+
 		xlk_fair_buy = (3 * bond_buy_price + 2 * aapl_buy_size + 3 * msft_buy_price + 2 * goog_buy_price)/10
 
 		if xlk_fair_buy > xlk_sell_price + CONVERT_FEE:
+
+			print("Making transactions")
 
 			toReturn.append({"type": "add", "order_id": order_id, "symbol": "XLK", "dir": "BUY", "price": xlk_sell_price, "size": xlk_sell_size})
 			toReturn.append({"type": "convert", "order_id": order_id, "symbol": "XLK", "dir": "BUY", "size": xlk_sell_size})
