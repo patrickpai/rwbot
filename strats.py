@@ -162,16 +162,17 @@ def etf(xlk, bond, aapl, msft, goog, order_id):
 		goog_sell_price = float(goog["sell"][0][0])
 		goog_sell_size = goog["sell"][0][1]
 
-		print("Parsed prices")
+		# print("Parsed prices")
 
 		xlk_fair_buy = ((3 * bond_buy_price) + (2 * aapl_buy_price) + (3 * msft_buy_price) + (2 * goog_buy_price))/10
 
-		print("Fair buy: ", xlk_fair_buy)
-		print("Sell price: ", xlk_sell_price)
+		# print("Fair buy: ", xlk_fair_buy)
+		# print("Sell price: ", xlk_sell_price)
 
 		if xlk_fair_buy > xlk_sell_price + CONVERT_FEE:
 
-			print("ETF -> Stocks")
+			# print("ETF -> Stocks")
+			print("Making transaction")
 
 			toReturn.append({"type": "add", "order_id": order_id, "symbol": "XLK", "dir": "BUY", "price": xlk_sell_price, "size": xlk_sell_size})
 			toReturn.append({"type": "convert", "order_id": order_id, "symbol": "XLK", "dir": "BUY", "size": xlk_sell_size})
@@ -183,21 +184,21 @@ def etf(xlk, bond, aapl, msft, goog, order_id):
 
 		xlk_fair_sell = ((3 * bond_sell_price) + (2 * aapl_sell_price) + (3 * msft_sell_price) + (2 * goog_sell_price))/10
 
-		print("Fair sell: ", xlk_fair_sell)
-		print("Buy price: ", xlk_buy_price)
+		# print("Fair sell: ", xlk_fair_sell)
+		# print("Buy price: ", xlk_buy_price)
 
 		if xlk_fair_sell + CONVERT_FEE < xlk_buy_price:
 
-			print("Stocks -> ETF")
+			print("Making transaction")
 
-			num_xlk = ((3 * bond_sell_size) + (2 * aapl_sell_size) + (3 * msft_sell_size) + (2 * goog_sell_size))/10
+			
 
 			toReturn.append({"type": "add", "order_id": order_id, "symbol": "BOND", "dir": "BUY", "price": bond_sell_price, "size": bond_sell_size})
 			toReturn.append({"type": "add", "order_id": order_id, "symbol": "AAPL", "dir": "BUY", "price": aapl_sell_price, "size": aapl_sell_size})
 			toReturn.append({"type": "add", "order_id": order_id, "symbol": "MSFT", "dir": "BUY", "price": msft_sell_price, "size": msft_sell_size})
 			toReturn.append({"type": "add", "order_id": order_id, "symbol": "GOOG", "dir": "BUY", "price": goog_sell_price, "size": goog_sell_size})
 
-			toReturn.append({"type": "convert", "order_id": order_id, "symbol": "XLK", "dir": "SELL", "size": num_xlk})
+			toReturn.append({"type": "convert", "order_id": order_id, "symbol": "XLK", "dir": "SELL", "size": 10})
 
 			toReturn.append({"type": "add", "order_id": order_id, "symbol": "XLK", "dir": "SELL", "price": xlk_buy_price, "size": num_xlk})
 					
