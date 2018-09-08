@@ -85,6 +85,9 @@ def main():
         if 'symbol' not in hello_from_exchange:
             continue
 
+        if 'ack' in hello_from_exchange or 'reject' in hello_from_exchange:
+            print('ACKorREJECT', hello_from_exchange)
+
         symbol = hello_from_exchange['symbol']
 
         if (symbol == 'XLK' or symbol == 'BOND' or symbol == 'AAPL' or symbol == 'MSFT' or symbol == 'GOOG') and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
@@ -99,13 +102,7 @@ def main():
                             numXLK += order['size']
                         elif order['symbol'] == 'BOND' and order['dir'] == 'BUY':
                             numBonds += order['size']
-                        converted = write_to_exchange(exchange, order)
-                        print('CONVERTED:',converted)
-                        if converted is not None:
-                            if order['type'] == 'add' and 'ack' in converted:
-                                print('buy SUCCESS')
-                            if order['type'] == 'add' and 'reject' in converted:
-                                print('buy FAILURE')
+                        write_to_exchange(exchange, order)
                         time.sleep(.1)
 
                 xlk = ""
