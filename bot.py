@@ -64,17 +64,17 @@ def main():
         if 'type' in hello_from_exchange and 'ack' in hello_from_exchange['type']:
             print('ACK:', hello_from_exchange)
 
-        if 'symbol' in hello_from_exchange and hello_from_exchange['symbol'] == 'BOND'\
-                and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
-            returned = strats.bond_passive(hello_from_exchange, order_id)
-            order_id += 1
-            result = write_to_exchange(exchange, returned)
+        # if 'symbol' in hello_from_exchange and hello_from_exchange['symbol'] == 'BOND'\
+        #         and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
+        #     returned = strats.bond_passive(hello_from_exchange, order_id)
+        #     order_id += 1
+        #     result = write_to_exchange(exchange, returned)
 
-            print('-' * 10)
-            print('ORDER_ID:', order_id)
-            print('PASSED:', hello_from_exchange)
-            print('RESULT:', result)
-            print('-' * 10)
+            # print('-' * 10)
+            # print('ORDER_ID:', order_id)
+            # print('PASSED:', hello_from_exchange)
+            # print('RESULT:', result)
+            # print('-' * 10)
 
         if 'symbol' in hello_from_exchange and (hello_from_exchange['symbol'] == 'BABZ'\
             or hello_from_exchange['symbol'] == 'BABA') and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
