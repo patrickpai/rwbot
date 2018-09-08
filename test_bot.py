@@ -63,6 +63,7 @@ def main():
     goog = ""
 
     numXLK = 0
+    numBonds = 0
 
     while True:
         hello_from_exchange = read_from_exchange(exchange)
@@ -88,7 +89,7 @@ def main():
 
         if (symbol == 'XLK' or symbol == 'BOND' or symbol == 'AAPL' or symbol == 'MSFT' or symbol == 'GOOG') and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
             if len(xlk) > 0 and len(bond) > 0 and len(aapl) > 0 and len(msft) > 0 and len(goog) > 0:
-                returned = strats.etf(xlk, bond, aapl, msft, goog, order_id, numXLK)
+                returned = strats.etf(xlk, bond, aapl, msft, goog, order_id, numXLK, numBonds)
                 order_id += 1
 
                 if returned is not None and len(returned) > 0:
@@ -96,6 +97,8 @@ def main():
                     for order in returned:
                         if order['symbol'] == 'XLK' and order['dir'] == 'BUY':
                             numXLK += order['size']
+                        elif order['symbol'] == 'BOND' and order['dir'] == 'BUY':
+                            numBonds += order['size']
                         converted = write_to_exchange(exchange, order)
                         if converted is not None:
                             if order['type'] == 'add' and 'ack' in converted:
