@@ -88,14 +88,13 @@ def main():
                 returned = strats.etf_aggro(xlk, bond, aapl, msft, goog, order_id)
                 order_id += 1
 
-                if order_id > 7:
-                    write_to_exchange(exchange, {"type": "cancel", "order_id": order_id - 7})
-
+                if order_id > 10:
+                    write_to_exchange(exchange, {"type": "cancel", "order_id": order_id - 10})
 
                 if returned is not None and len(returned) > 0:
                     for order in returned:
                         write_to_exchange(exchange, order)
-                        time.sleep(.1)
+                        time.sleep(1)
 
                 xlk = ""
                 bond = ""
