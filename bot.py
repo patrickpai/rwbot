@@ -46,13 +46,14 @@ def read_from_exchange(exchange):
 
 def main():
     exchange = connect()
-    write_to_exchange(exchange, {"type": "hello", "team": team_name.upper()})
-    hello_from_exchange = read_from_exchange(exchange)
-    # A common mistake people make is to call write_to_exchange() > 1
-    # time for every read_from_exchange() response.
-    # Since many write messages generate marketdata, this will cause an
-    # exponential explosion in pending messages. Please, don't do that!
-    print("The exchange replied:", hello_from_exchange, file=sys.stderr)
+    while True:
+        write_to_exchange(exchange, {"type": "book", "symbol":"BOND"})
+        hello_from_exchange = read_from_exchange(exchange)
+        # A common mistake people make is to call write_to_exchange() > 1
+        # time for every read_from_exchange() response.
+        # Since many write messages generate marketdata, this will cause an
+        # exponential explosion in pending messages. Please, don't do that!
+        print("The exchange replied:", hello_from_exchange, file=sys.stderr)
 
 if __name__ == "__main__":
     main()
