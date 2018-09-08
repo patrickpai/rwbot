@@ -86,7 +86,7 @@ def main():
             continue
 
         print(hello_from_exchange)
-        if 'fill' in hello_from_exchange:
+        if 'ack' in hello_from_exchange['type']:
             print('fill', hello_from_exchange)
 
         symbol = hello_from_exchange['symbol']
