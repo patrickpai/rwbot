@@ -11,6 +11,7 @@ import sys
 import socket
 import json
 import strats
+import time
 
 # ~~~~~============== CONFIGURATION  ==============~~~~~
 # replace REPLACEME with your team name!
@@ -55,6 +56,15 @@ def main():
     babz_prices = ""
     baba_prices = ""
 
+    xlk = ""
+    bond = ""
+    aapl = ""
+    msft = ""
+    goog = ""
+
+    numXLK = 0
+    numBonds = 0
+
     while True:
         hello_from_exchange = read_from_exchange(exchange)
         # A common mistake people make is to call write_to_exchange() > 1
@@ -63,15 +73,54 @@ def main():
         # exponential explosion in pending messages. Please, don't do that!
         # print("The exchange replied:", hello_from_exchange, file=sys.stderr)
 
-        if 'type' in hello_from_exchange and 'ack' in hello_from_exchange['type']:
-            print('ACK:', hello_from_exchange)
+        if 'symbol' not in hello_from_exchange:
+            continue
 
-        if 'symbol' in hello_from_exchange and hello_from_exchange['symbol'] == 'BOND'\
-                and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
+        symbol = hello_from_exchange['symbol']
+
+        if symbol == 'BOND' and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
             returned = strats.bond_aggro(hello_from_exchange, order_id)
             order_id += 1
             result = write_to_exchange(exchange, returned)
 
+        if (symbol == 'XLK' or symbol == 'BOND' or symbol == 'AAPL' or symbol == 'MSFT' or symbol == 'GOOG') and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
+            if len(xlk) > 0 and len(bond) > 0 and len(aapl) > 0 and len(msft) > 0 and len(goog) > 0:
+                returned = strats.etf(xlk, bond, aapl, msft, goog, order_id, numXLK, numBonds)
+                order_id += 1
+
+                if order_id > 100:
+                    write_to_exchange(exchange, {"type": "cancel", "order_id": order_id - 100})
+
+                if returned is not None and len(returned) > 0:
+                    for order in returned:
+                        if order['symbol'] == 'XLK' and order['dir'] == 'BUY':
+                            numXLK += order['size']
+                        elif order['symbol'] == 'BOND' and order['dir'] == 'BUY':
+                            numBonds += order['size']
+                        if order['type'] == 'convert' and order['dir'] == 'SELL':
+                            numXLK = 0
+                        elif order['type'] == 'convert' and order['dir'] == 'BUY':
+                            numBonds = 0
+
+                        write_to_exchange(exchange, order)
+                        time.sleep(.1)
+
+                xlk = ""
+                bond = ""
+                aapl = ""
+                msft = ""
+                goog = ""
+
+            if symbol == 'XLK':
+                xlk = hello_from_exchange
+            elif symbol == 'BOND':
+                bond = hello_from_exchange
+            elif symbol == 'AAPL':
+                aapl = hello_from_exchange
+            elif symbol == 'MSFT':
+                msft = hello_from_exchange
+            elif symbol == 'GOOG':
+                goog = hello_from_exchange
 
 if __name__ == "__main__":
     main()
