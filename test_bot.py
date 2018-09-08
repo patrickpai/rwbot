@@ -86,8 +86,8 @@ def main():
             continue
 
         print(hello_from_exchange)
-        # if 'ack' in hello_from_exchange or 'reject' in hello_from_exchange:
-        #     print('ACKorREJECT', hello_from_exchange)
+        if 'fill' in hello_from_exchange:
+            print('fill', hello_from_exchange)
 
         symbol = hello_from_exchange['symbol']
 
