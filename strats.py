@@ -153,6 +153,6 @@ def etf(xlk, bond, aapl, msft, goog, order_id, num_xlk, num_bonds):
 		# 	toReturn.append({"type": "convert", "order_id": order_id, "symbol": "XLK", "dir": "SELL", "size": num_xlk})
 
 		if num_bonds > 50:
-			toReturn.append({"type": "convert", "order_id": order_id, "symbol": "XLK", "dir": "BUY", "size": num_bonds})
+			toReturn.append({"type": "convert", "order_id": order_id, "symbol": "XLK", "dir": "BUY", "size": 20})
 					
 		return toReturn
