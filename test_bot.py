@@ -92,8 +92,8 @@ def main():
                 returned = strats.etf(xlk, bond, aapl, msft, goog, order_id, numXLK, numBonds)
                 order_id += 1
 
-                if order_id > 500:
-                    write_to_exchange(exchange, {"type": "cancel", "order_id": order_id - 500})
+                if order_id > 100:
+                    write_to_exchange(exchange, {"type": "cancel", "order_id": order_id - 100})
 
                 if returned is not None and len(returned) > 0:
                     for order in returned:
