@@ -50,6 +50,8 @@ def main():
     write_to_exchange(exchange, {"type": "hello", "team": team_name.upper()})
     order_id = 1
 
+    print('RUNNING')
+
     babz_prices = ""
     baba_prices = ""
 
