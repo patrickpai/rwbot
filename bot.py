@@ -49,13 +49,20 @@ def main():
     exchange = connect()
     write_to_exchange(exchange, {"type": "hello", "team": team_name.upper()})
     order_id = 1
+
+    babz_prices = []
+    baba_prices = []
+
     while True:
         hello_from_exchange = read_from_exchange(exchange)
         # A common mistake people make is to call write_to_exchange() > 1
         # time for every read_from_exchange() response.
         # Since many write messages generate marketdata, this will cause an
         # exponential explosion in pending messages. Please, don't do that!
-        # print("The exchange replied:", hello_from_exchange, file=sys.stderr)
+        print("The exchange replied:", hello_from_exchange, file=sys.stderr)
+
+        if 'ACK' in hello_from_exchange or 'REJECT' in hello_from_exchange or 'FILL' in hello_from_exchange:
+            print('HISTORY:', hello_from_exchange)
 
         if 'symbol' in hello_from_exchange and hello_from_exchange['symbol'] == 'BOND'\
                 and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
@@ -66,9 +73,19 @@ def main():
             print('PASSED:', hello_from_exchange)
             print('RESULT:', result)
 
-        if 'symbol' in hello_from_exchange and hello_from_exchange['symbol'] == 'BABZ'\
-            and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
-            print('PASSED:', hello_from_exchange)
-            
+        # if 'symbol' in hello_from_exchange and (hello_from_exchange['symbol'] == 'BABZ'\
+        #     or hello_from_exchange['symbol'] == 'BABA') and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
+        #
+        #     if len(babz_prices) > 0 and len(baba_prices) > 0 :
+        #         returned = strats.adr(babz_prices, baba_prices, order_id)
+        #         order_id += 1
+        #         result = write_to_exchange(exchange, returned)
+        #
+        #         print('PASSED:', hello_from_exchange)
+        #         print('RESULT:', result)
+        #     if hello_from_exchange['symbol'] == 'BABZ':
+        #         returned = strats.adr(hello_from_exchange['buy'], )
+
+
 if __name__ == "__main__":
     main()
