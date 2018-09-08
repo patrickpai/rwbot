@@ -176,33 +176,29 @@ def etf(xlk, bond, aapl, msft, goog, order_id, num_xlk):
 
 			toReturn.append({"type": "add", "order_id": order_id, "symbol": "XLK", "dir": "BUY", "price": xlk_sell_price, "size": xlk_sell_size})
 
-			if num_xlk > 10:
-				toReturn.append({"type": "convert", "order_id": order_id, "symbol": "XLK", "dir": "SELL", "size": num_xlk})
-
-				toReturn.append({"type": "add", "order_id": order_id, "symbol": "BOND", "dir": "SELL", "price": bond_buy_price, "size": num_xlk*3})
-				toReturn.append({"type": "add", "order_id": order_id, "symbol": "AAPL", "dir": "SELL", "price": aapl_buy_price, "size": num_xlk*2})
-				toReturn.append({"type": "add", "order_id": order_id, "symbol": "MSFT", "dir": "SELL", "price": msft_buy_price, "size": num_xlk*3})
-				toReturn.append({"type": "add", "order_id": order_id, "symbol": "GOOG", "dir": "SELL", "price": goog_buy_price, "size": num_xlk*2})
+			toReturn.append({"type": "add", "order_id": order_id, "symbol": "BOND", "dir": "SELL", "price": bond_buy_price, "size": num_xlk*3})
+			toReturn.append({"type": "add", "order_id": order_id, "symbol": "AAPL", "dir": "SELL", "price": aapl_buy_price, "size": num_xlk*2})
+			toReturn.append({"type": "add", "order_id": order_id, "symbol": "MSFT", "dir": "SELL", "price": msft_buy_price, "size": num_xlk*3})
+			toReturn.append({"type": "add", "order_id": order_id, "symbol": "GOOG", "dir": "SELL", "price": goog_buy_price, "size": num_xlk*2})
 
 			return toReturn
-		# xlk_fair_sell = ((3 * bond_sell_price) + (2 * aapl_sell_price) + (3 * msft_sell_price) + (2 * goog_sell_price))/10
 
-		# # print("Fair sell: ", xlk_fair_sell)
-		# # print("Buy price: ", xlk_buy_price)
+		xlk_fair_sell = ((3 * bond_sell_price) + (2 * aapl_sell_price) + (3 * msft_sell_price) + (2 * goog_sell_price))/10
 
-		# if xlk_fair_sell + CONVERT_FEE < xlk_buy_price:
+		# print("Fair sell: ", xlk_fair_sell)
+		# print("Buy price: ", xlk_buy_price)
 
-		# 	print("Making transaction")
+		if xlk_fair_sell < xlk_buy_price:
 
-		# 	toReturn.append({"type": "add", "order_id": order_id, "symbol": "BOND", "dir": "BUY", "price": bond_sell_price, "size": bond_sell_size})
-		# 	toReturn.append({"type": "add", "order_id": order_id, "symbol": "AAPL", "dir": "BUY", "price": aapl_sell_price, "size": aapl_sell_size})
-		# 	toReturn.append({"type": "add", "order_id": order_id, "symbol": "MSFT", "dir": "BUY", "price": msft_sell_price, "size": msft_sell_size})
-		# 	toReturn.append({"type": "add", "order_id": order_id, "symbol": "GOOG", "dir": "BUY", "price": goog_sell_price, "size": goog_sell_size})
+			print("Making transaction")
 
-		# 	toReturn.append({"type": "convert", "order_id": order_id, "symbol": "XLK", "dir": "BUY", "size": 10})
+			toReturn.append({"type": "add", "order_id": order_id, "symbol": "BOND", "dir": "BUY", "price": bond_sell_price, "size": bond_sell_size})
+			toReturn.append({"type": "add", "order_id": order_id, "symbol": "AAPL", "dir": "BUY", "price": aapl_sell_price, "size": aapl_sell_size})
+			toReturn.append({"type": "add", "order_id": order_id, "symbol": "MSFT", "dir": "BUY", "price": msft_sell_price, "size": msft_sell_size})
+			toReturn.append({"type": "add", "order_id": order_id, "symbol": "GOOG", "dir": "BUY", "price": goog_sell_price, "size": goog_sell_size})
 
-		# 	toReturn.append({"type": "add", "order_id": order_id, "symbol": "XLK", "dir": "SELL", "price": xlk_buy_price, "size": 10})
+			toReturn.append({"type": "add", "order_id": order_id, "symbol": "XLK", "dir": "SELL", "price": xlk_buy_price, "size": xlk_buy_size})
 					
-		# return toReturn
+		return toReturn
 
 
