@@ -98,8 +98,14 @@ def main():
         #     elif symbol == 'BABA':
         #         baba_prices = hello_from_exchange
 
+        if 'type' in hello_from_exchange and 'fill' in hello_from_exchange['type']:
+            print('FILL:', hello_from_exchange)
+
+        print(hello_from_exchange)
+
         if (symbol == 'XLK' or symbol == 'BOND' or symbol == 'AAPL' or symbol == 'MSFT' or symbol == 'GOOG') and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
             if len(xlk) > 0 and len(bond) > 0 and len(aapl) > 0 and len(msft) > 0 and len(goog) > 0:
+                print('Calling etf')
                 returned = strats.etf(xlk, bond, aapl, msft, goog, order_id)
                 order_id += 1
 
@@ -113,15 +119,15 @@ def main():
                 msft = ""
                 goog = ""
 
-            if symbol == 'xlk':
+            if symbol == 'XLK':
                 xlk = hello_from_exchange
-            elif symbol == 'bond':
+            elif symbol == 'BOND':
                 bond = hello_from_exchange
-            elif symbol == 'aapl':
+            elif symbol == 'AAPL':
                 aapl = hello_from_exchange
-            elif symbol == 'msft':
+            elif symbol == 'MSFT':
                 msft = hello_from_exchange
-            elif symbol == 'goog':
+            elif symbol == 'GOOG':
                 goog = hello_from_exchange
 
 if __name__ == "__main__":
