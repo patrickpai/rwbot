@@ -11,6 +11,7 @@ import sys
 import socket
 import json
 import strats
+import time
 
 # ~~~~~============== CONFIGURATION  ==============~~~~~
 # replace REPLACEME with your team name!
@@ -110,6 +111,7 @@ def main():
                 if returned is not None and len(returned) > 0:
                     for order in returned:
                         write_to_exchange(exchange, order)
+                        time.sleep(1)
 
                 xlk = ""
                 bond = ""
