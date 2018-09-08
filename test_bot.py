@@ -85,9 +85,10 @@ def main():
         if 'symbol' not in hello_from_exchange:
             continue
 
-        # print(hello_from_exchange)
-        if "ack" in hello_from_exchange['type']:
-            print('ack', hello_from_exchange)
+        print(hello_from_exchange)
+        print("ack" in hello_from_exchange)
+        # if "ack" in hello_from_exchange['type']:
+        #     print('ack', hello_from_exchange)
 
         symbol = hello_from_exchange['symbol']
 
