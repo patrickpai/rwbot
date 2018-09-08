@@ -96,7 +96,6 @@ def main():
                 order_id += 1
 
                 if returned is not None and len(returned) > 0:
-                    print('ORDERS TO PROCESS:', returned)
                     for order in returned:
                         if order['symbol'] == 'XLK' and order['dir'] == 'BUY':
                             numXLK += order['size']
