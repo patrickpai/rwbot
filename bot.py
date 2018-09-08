@@ -10,6 +10,7 @@ from __future__ import print_function
 import sys
 import socket
 import json
+import strats
 
 # ~~~~~============== CONFIGURATION  ==============~~~~~
 # replace REPLACEME with your team name!
@@ -46,7 +47,8 @@ def read_from_exchange(exchange):
 
 def main():
     exchange = connect()
-    result = write_to_exchange(exchange, {"type": "hello", "team": team_name.upper()})
+    write_to_exchange(exchange, {"type": "hello", "team": team_name.upper()})
+    order_id = 1;
     while True:
         hello_from_exchange = read_from_exchange(exchange)
         # A common mistake people make is to call write_to_exchange() > 1
@@ -54,6 +56,10 @@ def main():
         # Since many write messages generate marketdata, this will cause an
         # exponential explosion in pending messages. Please, don't do that!
         print("The exchange replied:", hello_from_exchange, file=sys.stderr)
+
+        if hello_from_exchange['symbol'] == 'BOND':
+            strats.bond_passive(hello_from_exchange, order_id)
+            order_id += 1
 
 if __name__ == "__main__":
     main()
