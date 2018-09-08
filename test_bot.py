@@ -100,6 +100,7 @@ def main():
                         elif order['symbol'] == 'BOND' and order['dir'] == 'BUY':
                             numBonds += order['size']
                         converted = write_to_exchange(exchange, order)
+                        print('CONVERTED:',converted)
                         if converted is not None:
                             if order['type'] == 'add' and 'ack' in converted:
                                 print('buy SUCCESS')
