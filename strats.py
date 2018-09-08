@@ -55,18 +55,6 @@ def adr(babz_prices, baba_prices, order_id):
 
 	toReturn = []
 
-	babz_buy_price = -1
-	babz_buy_size = -1
-
-	babz_sell_price = -1
-	babz_sell_size = -1
-
-	baba_buy_price = -1
-	baba_buy_size = -1
-
-	baba_sell_price = -1
-	baba_sell_size = -1
-
 	if len(babz_prices["buy"]) > 0 and len(babz_prices["sell"]) > 0 and len(baba_prices["buy"]) > 0 and len(baba_prices["sell"]) > 0:
 		babz_buy_price = babz_prices["buy"][0][0]
 		babz_buy_size = babz_prices["buy"][0][1]
@@ -94,39 +82,9 @@ def adr(babz_prices, baba_prices, order_id):
 
 			return toReturn
 
-def etf(xlk, bond, aapl, msft, goog, order_id, num_xlk):
+def etf(xlk, bond, aapl, msft, goog, order_id, num_xlk, num_bonds):
 
 	toReturn = []
-
-	xlk_buy_price = -1
-	xlk_buy_size = -1
-
-	xlk_sell_price = -1
-	xlk_sell_size = -1
-
-	bond_buy_price = -1
-	bond_buy_size = -1
-
-	bond_sell_price = -1
-	bond_sell_size = -1
-
-	aapl_buy_price = -1
-	aapl_buy_size = -1
-
-	aapl_sell_price = -1
-	aapl_sell_size = -1
-
-	msft_buy_price = -1
-	msft_buy_size = -1
-
-	msft_sell_price = -1
-	msft_sell_size = -1
-
-	goog_buy_price = -1
-	goog_buy_size = -1
-
-	goog_sell_price = -1
-	goog_sell_size = -1
 
 	if len(xlk["buy"]) and len(xlk["sell"]) and len(bond["buy"]) and len(bond["sell"]) and len(aapl["buy"]) and len(aapl["sell"]) \
 		and len(msft["buy"]) and len(msft["sell"]) and len(goog["buy"]) and len(goog["sell"]):
@@ -189,5 +147,11 @@ def etf(xlk, bond, aapl, msft, goog, order_id, num_xlk):
 			toReturn.append({"type": "add", "order_id": order_id, "symbol": "GOOG", "dir": "BUY", "price": goog_sell_price, "size": goog_sell_size})
 
 			toReturn.append({"type": "add", "order_id": order_id, "symbol": "XLK", "dir": "SELL", "price": xlk_buy_price, "size": xlk_buy_size})
+
+		if num_xlk > 50:
+			toReturn.append({"type": "convert", "order_id": order_id, "symbol": "XLK", "dir": "SELL", "size": num_xlk})
+
+		if num_bonds > 50:
+			toReturn.append({"type": "convert", "order_id": order_id, "symbol": "XLK", "dir": "BUY", "size": num_bonds})
 					
 		return toReturn
