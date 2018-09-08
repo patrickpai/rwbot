@@ -59,7 +59,7 @@ def main():
         # time for every read_from_exchange() response.
         # Since many write messages generate marketdata, this will cause an
         # exponential explosion in pending messages. Please, don't do that!
-        print("The exchange replied:", hello_from_exchange, file=sys.stderr)
+        # print("The exchange replied:", hello_from_exchange, file=sys.stderr)
 
         if 'type' in hello_from_exchange and 'ack' in hello_from_exchange['type']:
             print('ACK:', hello_from_exchange)
