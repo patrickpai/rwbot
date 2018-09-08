@@ -119,23 +119,15 @@ def main():
                 msft = ""
                 goog = ""
 
-            print('*' * 10)
-            print(xlk)
-            print(bond)
-            print(aapl)
-            print(msft)
-            print(goog)
-            print('*' * 10)
-
-            if symbol == 'xlk':
+            if symbol == 'XLK':
                 xlk = hello_from_exchange
-            elif symbol == 'bond':
+            elif symbol == 'BOND':
                 bond = hello_from_exchange
-            elif symbol == 'aapl':
+            elif symbol == 'AAPL':
                 aapl = hello_from_exchange
-            elif symbol == 'msft':
+            elif symbol == 'MSFT':
                 msft = hello_from_exchange
-            elif symbol == 'goog':
+            elif symbol == 'GOOG':
                 goog = hello_from_exchange
 
 if __name__ == "__main__":
