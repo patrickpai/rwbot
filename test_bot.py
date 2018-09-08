@@ -85,8 +85,9 @@ def main():
         if 'symbol' not in hello_from_exchange:
             continue
 
-        if 'fill' in hello_from_exchange['type']:
-            print('fill', hello_from_exchange)
+        print(hello_from_exchange)
+        # if 'fill' in hello_from_exchange['type']:
+        #     print('fill', hello_from_exchange)
 
         symbol = hello_from_exchange['symbol']
 
