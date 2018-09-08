@@ -103,6 +103,7 @@ def main():
 
             if symbol == 'XLK':
                 xlk = hello_from_exchange
+                print('ETF:', hello_from_exchange)
             elif symbol == 'BOND':
                 bond = hello_from_exchange
             elif symbol == 'AAPL':
