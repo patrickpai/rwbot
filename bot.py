@@ -56,7 +56,6 @@ def main():
     baba_prices = ""
 
     while True:
-        print('in while')
         hello_from_exchange = read_from_exchange(exchange)
         # A common mistake people make is to call write_to_exchange() > 1
         # time for every read_from_exchange() response.
