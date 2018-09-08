@@ -18,7 +18,7 @@ import time
 team_name="RWALK"
 # This variable dictates whether or not the bot is connecting to the prod
 # or test exchange. Be careful with this switch!
-test_mode = True
+test_mode = False
 
 # This setting changes which test exchange is connected to.
 # 0 is prod-like
@@ -64,7 +64,7 @@ def main():
 
     numXLK = 0
     numBonds = 0
-    
+
     while True:
         hello_from_exchange = read_from_exchange(exchange)
         # A common mistake people make is to call write_to_exchange() > 1
