@@ -70,29 +70,31 @@ def main():
             order_id += 1
             result = write_to_exchange(exchange, returned)
 
-            print('-' * 10)
-            print('ORDER_ID:', order_id)
-            print('PASSED:', hello_from_exchange)
-            print('RESULT:', result)
-            print('-' * 10)
+            # print('-' * 10)
+            # print('ORDER_ID:', order_id)
+            # print('PASSED:', hello_from_exchange)
+            # print('RESULT:', result)
+            # print('-' * 10)
 
-        # if 'symbol' in hello_from_exchange and (hello_from_exchange['symbol'] == 'BABZ'\
-        #     or hello_from_exchange['symbol'] == 'BABA') and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
-        #
-        #     if len(babz_prices) > 0 and len(baba_prices) > 0 :
-        #         returned = strats.adr(babz_prices, baba_prices, order_id)
-        #         order_id += 1
-        #         result = write_to_exchange(exchange, returned)
-        #
-        #         babz_prices = ""
-        #         baba_prices = ""
-        #
-        #         print('PASSED:', hello_from_exchange)
-        #         print('RESULT:', result)
-        #     if hello_from_exchange['symbol'] == 'BABZ':
-        #         babz_prices = hello_from_exchange
-        #     elif hello_from_exchange['symbol'] == 'BABA':
-        #         baba_prices = hello_from_exchange
+        if 'symbol' in hello_from_exchange and (hello_from_exchange['symbol'] == 'BABZ'\
+            or hello_from_exchange['symbol'] == 'BABA') and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
+
+            print('LINE:', hello_from_exchange)
+
+            # if len(babz_prices) > 0 and len(baba_prices) > 0 :
+            #     # returned = strats.adr(babz_prices, baba_prices, order_id)
+            #     order_id += 1
+            #     # result = write_to_exchange(exchange, returned)
+            #
+            #     babz_prices = ""
+            #     baba_prices = ""
+            #
+            #     # print('PASSED:', hello_from_exchange)
+            #     # print('RESULT:', result)
+            # if hello_from_exchange['symbol'] == 'BABZ':
+            #     babz_prices = hello_from_exchange
+            # elif hello_from_exchange['symbol'] == 'BABA':
+            #     baba_prices = hello_from_exchange
 
 
 if __name__ == "__main__":
