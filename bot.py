@@ -61,7 +61,8 @@ def main():
             print('PASSED:', hello_from_exchange)
             returned = strats.bond_passive(hello_from_exchange, order_id)
             order_id += 1
-            write_to_exchange(exchange, returned)
+            result = write_to_exchange(exchange, returned)
+            print(result)
 
 if __name__ == "__main__":
     main()
