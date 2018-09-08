@@ -119,6 +119,14 @@ def main():
                 msft = ""
                 goog = ""
 
+            print('*' * 10)
+            print(xlk)
+            print(bond)
+            print(aapl)
+            print(msft)
+            print(goog)
+            print('*' * 10)
+
             if symbol == 'xlk':
                 xlk = hello_from_exchange
             elif symbol == 'bond':
