@@ -17,13 +17,13 @@ import strats
 team_name="RWALK"
 # This variable dictates whether or not the bot is connecting to the prod
 # or test exchange. Be careful with this switch!
-test_mode = False
+test_mode = True
 
 # This setting changes which test exchange is connected to.
 # 0 is prod-like
 # 1 is slower
 # 2 is empty
-test_exchange_index=2
+test_exchange_index=0
 prod_exchange_hostname="production"
 
 port=25000 + (test_exchange_index if test_mode else 0)
@@ -66,16 +66,9 @@ def main():
 
         if 'symbol' in hello_from_exchange and hello_from_exchange['symbol'] == 'BOND'\
                 and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
-            returned = strats.bond_passive(hello_from_exchange, order_id)
+            returned = strats.bond_aggro(hello_from_exchange, order_id)
             order_id += 1
             result = write_to_exchange(exchange, returned)
-
-            # print('-' * 10)
-            # print('ORDER_ID:', order_id)
-            # print('PASSED:', hello_from_exchange)
-            # print('RESULT:', result)
-            # print('-' * 10)
-
         if 'symbol' in hello_from_exchange and (hello_from_exchange['symbol'] == 'BABZ'\
             or hello_from_exchange['symbol'] == 'BABA') and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
 
