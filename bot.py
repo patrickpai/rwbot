@@ -57,7 +57,8 @@ def main():
         # exponential explosion in pending messages. Please, don't do that!
         print("The exchange replied:", hello_from_exchange, file=sys.stderr)
 
-        if 'symbol' in hello_from_exchange and hello_from_exchange['symbol'] == 'BOND':
+        if 'symbol' in hello_from_exchange and hello_from_exchange['symbol'] == 'BOND'\
+                and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
             print('PASSED:', hello_from_exchange)
             returned = strats.bond_passive(hello_from_exchange, order_id)
             order_id += 1
