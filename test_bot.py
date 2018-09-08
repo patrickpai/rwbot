@@ -92,14 +92,16 @@ def main():
                 order_id += 1
 
                 if returned is not None and len(returned) > 0:
+                    print('ORDERS TO PROCESS:', returned)
                     for order in returned:
                         if order['symbol'] == 'XLK' and order['dir'] == 'BUY':
                             numXLK += order['size']
                         converted = write_to_exchange(exchange, order)
-                        if order['type'] == 'buy' and 'ack' in converted:
-                            print('buy SUCCESS')
-                        if order['type'] == 'buy' and 'reject' in converted:
-                            print('buy FAILURE')
+                        if converted is not None:
+                            if order['type'] == 'add' and 'ack' in converted:
+                                print('buy SUCCESS')
+                            if order['type'] == 'add' and 'reject' in converted:
+                                print('buy FAILURE')
                         time.sleep(.1)
 
                 xlk = ""
