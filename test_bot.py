@@ -106,7 +106,8 @@ def main():
                 goog = ""
 
             if symbol == 'XLK':
-                print('ETF:', hello_from_exchange)
+                xlk = hello_from_exchange
+                # print('ETF:', hello_from_exchange)
             elif symbol == 'BOND':
                 bond = hello_from_exchange
             elif symbol == 'AAPL':
