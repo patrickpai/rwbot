@@ -103,6 +103,7 @@ def main():
 
         if (symbol == 'XLK' or symbol == 'BOND' or symbol == 'AAPL' or symbol == 'MSFT' or symbol == 'GOOG') and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
             if len(xlk) > 0 and len(bond) > 0 and len(aapl) > 0 and len(msft) > 0 and len(goog) > 0:
+                print('Calling etf')
                 returned = strats.etf(xlk, bond, aapl, msft, goog, order_id)
                 order_id += 1
 
