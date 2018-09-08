@@ -55,15 +55,16 @@ def main():
         # time for every read_from_exchange() response.
         # Since many write messages generate marketdata, this will cause an
         # exponential explosion in pending messages. Please, don't do that!
-        print("The exchange replied:", hello_from_exchange, file=sys.stderr)
+        # print("The exchange replied:", hello_from_exchange, file=sys.stderr)
 
         if 'symbol' in hello_from_exchange and hello_from_exchange['symbol'] == 'BOND'\
                 and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
-            print('PASSED:', hello_from_exchange)
             returned = strats.bond_passive(hello_from_exchange, order_id)
             order_id += 1
             result = write_to_exchange(exchange, returned)
-            print(result)
+
+            print('PASSED:', hello_from_exchange)
+            print('RESULT:', result)
 
 if __name__ == "__main__":
     main()
