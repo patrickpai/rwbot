@@ -89,14 +89,18 @@ def main():
         if (symbol == 'XLK' or symbol == 'BOND' or symbol == 'AAPL' or symbol == 'MSFT' or symbol == 'GOOG') and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
             if len(xlk) > 0 and len(bond) > 0 and len(aapl) > 0 and len(msft) > 0 and len(goog) > 0:
                 print('Calling etf')
-                returned = strats.etf(xlk, bond, aapl, msft, goog, order_id)
+                returned = strats.etf(xlk, bond, aapl, msft, goog, order_id, numXLK)
                 order_id += 1
 
                 if returned is not None and len(returned) > 0:
                     for order in returned:
                         if order['symbol'] == 'XLK' and order['dir'] == 'BUY':
                             numXLK += order['size']
-                        write_to_exchange(exchange, order)
+                        converted = write_to_exchange(exchange, order)
+                        if order[type] == 'convert' and 'ack' in converted:
+                            print('CONVERSION SUCCESS')
+                        if order[type] == 'convert' and 'reject' in converted:
+                            print('CONVERSION FAILURE')
                         time.sleep(.1)
 
                 xlk = ""
