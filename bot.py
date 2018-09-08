@@ -72,5 +72,6 @@ def main():
             order_id += 1
             result = write_to_exchange(exchange, returned)
 
+
 if __name__ == "__main__":
     main()
