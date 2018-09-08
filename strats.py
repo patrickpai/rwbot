@@ -153,7 +153,7 @@ def etf(xlk, bond, aapl, msft, goog, order_id):
 		msft_buy_price = msft["buy"][0][0]
 		msft_buy_size = msft["buy"][0][1]
 
-		msft_sell_price = msft["sell")][0][0]
+		msft_sell_price = msft["sell"][0][0]
 		msft_sell_size = msft["sell"][0][1]
 
 		goog_buy_price = goog["buy"][0][0]
