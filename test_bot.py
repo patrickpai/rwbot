@@ -93,7 +93,7 @@ def main():
                 if returned is not None and len(returned) > 0:
                     for order in returned:
                         write_to_exchange(exchange, order)
-                        time.sleep(.002)
+                        time.sleep(.01)
 
                 xlk = ""
                 bond = ""
