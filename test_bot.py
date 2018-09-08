@@ -101,6 +101,8 @@ def main():
                             print('CONVERSION SUCCESS')
                         if order['type'] == 'convert' and 'reject' in converted:
                             print('CONVERSION FAILURE')
+                        if order['type'] == 'buy':
+                            print(converted)
                         time.sleep(.1)
 
                 xlk = ""
