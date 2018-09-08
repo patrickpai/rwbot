@@ -66,5 +66,9 @@ def main():
             print('PASSED:', hello_from_exchange)
             print('RESULT:', result)
 
+        if 'symbol' in hello_from_exchange and hello_from_exchange['symbol'] == 'BABZ'\
+            and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
+            print('PASSED:', hello_from_exchange)
+            
 if __name__ == "__main__":
     main()
