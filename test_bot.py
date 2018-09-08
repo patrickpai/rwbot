@@ -93,16 +93,13 @@ def main():
 
                 if returned is not None and len(returned) > 0:
                     for order in returned:
-                        print('numXLK:', numXLK)
                         if order['symbol'] == 'XLK' and order['dir'] == 'BUY':
                             numXLK += order['size']
                         converted = write_to_exchange(exchange, order)
-                        if order['type'] == 'convert' and 'ack' in converted:
-                            print('CONVERSION SUCCESS')
-                        if order['type'] == 'convert' and 'reject' in converted:
-                            print('CONVERSION FAILURE')
-                        if order['type'] == 'buy':
-                            print(converted)
+                        if order['type'] == 'buy' and 'ack' in converted:
+                            print('buy SUCCESS')
+                        if order['type'] == 'buy' and 'reject' in converted:
+                            print('buy FAILURE')
                         time.sleep(.1)
 
                 xlk = ""
