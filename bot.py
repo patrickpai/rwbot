@@ -58,6 +58,7 @@ def main():
         print("The exchange replied:", hello_from_exchange, file=sys.stderr)
 
         if 'symbol' in hello_from_exchange and hello_from_exchange['symbol'] == 'BOND':
+            print('PASSED:', hello_from_exchange)
             returned = strats.bond_passive(hello_from_exchange, order_id)
             order_id += 1
             write_to_exchange(exchange, returned)
