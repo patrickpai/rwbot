@@ -85,17 +85,15 @@ def main():
         if 'symbol' not in hello_from_exchange:
             continue
 
-        print(hello_from_exchange)
-        print("ack" in hello_from_exchange)
-        # if "ack" in hello_from_exchange['type']:
-        #     print('ack', hello_from_exchange)
-
         symbol = hello_from_exchange['symbol']
 
         if (symbol == 'XLK' or symbol == 'BOND' or symbol == 'AAPL' or symbol == 'MSFT' or symbol == 'GOOG') and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
             if len(xlk) > 0 and len(bond) > 0 and len(aapl) > 0 and len(msft) > 0 and len(goog) > 0:
                 returned = strats.etf(xlk, bond, aapl, msft, goog, order_id, numXLK, numBonds)
                 order_id += 1
+
+                if order_id > 500:
+                    write_to_exchange(exchange, {"type": "cancel", "order_id": order_id - 500})
 
                 if returned is not None and len(returned) > 0:
                     for order in returned:
