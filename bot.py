@@ -61,8 +61,8 @@ def main():
         # exponential explosion in pending messages. Please, don't do that!
         print("The exchange replied:", hello_from_exchange, file=sys.stderr)
 
-        if 'ACK' in hello_from_exchange or 'REJECT' in hello_from_exchange or 'FILL' in hello_from_exchange:
-            print('HISTORY:', hello_from_exchange)
+        if 'type' in hello_from_exchange and 'ack' in hello_from_exchange['type']:
+            print('ACK:', hello_from_exchange)
 
         if 'symbol' in hello_from_exchange and hello_from_exchange['symbol'] == 'BOND'\
                 and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
