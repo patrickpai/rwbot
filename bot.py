@@ -46,9 +46,9 @@ def read_from_exchange(exchange):
 
 def main():
     exchange = connect()
-    write_to_exchange(exchange, {"type": "hello", "team": team_name.upper()})
+    
     while True:
-        write_to_exchange(exchange, {"type": "book", "symbol": "BOND", "buy": [[1000,5]],"sell":[[1000, 5]]})
+        write_to_exchange(exchange, {"type": "hello", "team": team_name.upper()})
         hello_from_exchange = read_from_exchange(exchange)
         # A common mistake people make is to call write_to_exchange() > 1
         # time for every read_from_exchange() response.
