@@ -85,23 +85,14 @@ def main():
 
         if (symbol == 'XLK' or symbol == 'BOND' or symbol == 'AAPL' or symbol == 'MSFT' or symbol == 'GOOG') and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
             if len(xlk) > 0 and len(bond) > 0 and len(aapl) > 0 and len(msft) > 0 and len(goog) > 0:
-                returned = strats.etf(xlk, bond, aapl, msft, goog, order_id, numXLK, numBonds)
+                returned = strats.etf_aggro(xlk, bond, aapl, msft, goog, order_id)
                 order_id += 1
 
-                if order_id > 100:
-                    write_to_exchange(exchange, {"type": "cancel", "order_id": order_id - 100})
+                if order_id > 10:
+                    write_to_exchange(exchange, {"type": "cancel", "order_id": order_id - 10})
 
                 if returned is not None and len(returned) > 0:
                     for order in returned:
-                        if order['symbol'] == 'XLK' and order['dir'] == 'BUY':
-                            numXLK += order['size']
-                        elif order['symbol'] == 'BOND' and order['dir'] == 'BUY':
-                            numBonds += order['size']
-                        if order['type'] == 'convert' and order['dir'] == 'SELL':
-                            numXLK = 0
-                        elif order['type'] == 'convert' and order['dir'] == 'BUY':
-                            numBonds = 0
-
                         write_to_exchange(exchange, order)
                         time.sleep(.1)
 
