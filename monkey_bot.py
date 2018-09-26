@@ -10,7 +10,7 @@ from __future__ import print_function
 import sys
 import socket
 import json
-import strats
+import strat_backup
 import time
 
 # ~~~~~============== CONFIGURATION  ==============~~~~~
@@ -62,6 +62,8 @@ def main():
     msft = ""
     goog = ""
 
+    baba = ""
+
     numXLK = 0
     numBonds = 0
 
@@ -79,39 +81,44 @@ def main():
         symbol = hello_from_exchange['symbol']
 
         if symbol == 'BOND' and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
-            returned = strats.bond_aggro(hello_from_exchange, order_id)
+            returned = strats_backup.bond_aggro(hello_from_exchange, order_id)
             order_id += 1
             result = write_to_exchange(exchange, returned)
 
-        if (symbol == 'XLK' or symbol == 'BOND' or symbol == 'AAPL' or symbol == 'MSFT' or symbol == 'GOOG') and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
-            if len(xlk) > 0 and len(bond) > 0 and len(aapl) > 0 and len(msft) > 0 and len(goog) > 0:
-                returned = strats.etf_aggro(xlk, bond, aapl, msft, goog, order_id)
-                order_id += 1
+        if (symbol == 'BABA') and 'type' in hello_from_exchange and hello_from_exchange['type'] == 'book':
 
-                if order_id > 10:
-                    write_to_exchange(exchange, {"type": "cancel", "order_id": order_id - 10})
+            returned = strat_backup.baba_aggro(hello_from_exchange, order_id)
+            order_id += 1
+            result = write_to_exchange(exchange,returned)
 
-                if returned is not None and len(returned) > 0:
-                    for order in returned:
-                        write_to_exchange(exchange, order)
-                        time.sleep(.1)
-
-                xlk = ""
-                bond = ""
-                aapl = ""
-                msft = ""
-                goog = ""
-
-            if symbol == 'XLK':
-                xlk = hello_from_exchange
-            elif symbol == 'BOND':
-                bond = hello_from_exchange
-            elif symbol == 'AAPL':
-                aapl = hello_from_exchange
-            elif symbol == 'MSFT':
-                msft = hello_from_exchange
-            elif symbol == 'GOOG':
-                goog = hello_from_exchange
+            # if len(xlk) > 0 and len(bond) > 0 and len(aapl) > 0 and len(msft) > 0 and len(goog) > 0:
+            #     returned = strats.etf_aggro(xlk, bond, aapl, msft, goog, order_id)
+            #     order_id += 1
+            #
+            #     if order_id > 10:
+            #         write_to_exchange(exchange, {"type": "cancel", "order_id": order_id - 10})
+            #
+            #     if returned is not None and len(returned) > 0:
+            #         for order in returned:
+            #             write_to_exchange(exchange, order)
+            #             time.sleep(.1)
+            #
+            #     xlk = ""
+            #     bond = ""
+            #     aapl = ""
+            #     msft = ""
+            #     goog = ""
+            #
+            # if symbol == 'XLK':
+            #     xlk = hello_from_exchange
+            # elif symbol == 'BOND':
+            #     bond = hello_from_exchange
+            # elif symbol == 'AAPL':
+            #     aapl = hello_from_exchange
+            # elif symbol == 'MSFT':
+            #     msft = hello_from_exchange
+            # elif symbol == 'GOOG':
+            #     goog = hello_from_exchange
 
 if __name__ == "__main__":
     main()
